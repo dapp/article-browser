@@ -1,6 +1,7 @@
 package com.mdapp.athletictest.data
 
 import com.squareup.moshi.Json
+import java.lang.reflect.Constructor
 
 data class League(
     val title: String?,
@@ -21,8 +22,13 @@ data class Article(
     val league: League,
     val title: String,
     val deletedAt: String?,
-    val createdAt: String
-)
+    val createdAt: String) {
+
+    fun combineWithAuthor(author: Author?): Article {
+        return Article(this.id, this.team, author ?: this.author, this.updatedAt, this.imageUrl, this.body,
+            this.league, this.title, this.deletedAt, this.createdAt)
+    }
+}
 
 data class Team(val id: String)
 
