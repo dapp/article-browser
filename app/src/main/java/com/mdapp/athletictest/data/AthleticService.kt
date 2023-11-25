@@ -11,21 +11,14 @@ interface AthleticService {
     suspend fun getLeague(@Path("leagueId") leagueId: String): League
 
     @GET("leagues/{leagueId}/articles")
-    suspend fun getArticlesForLeague(
-        @Path("leagueId") leagueId: String
-    ): List<Article>
+    suspend fun getArticlesForLeague(@Path("leagueId") leagueId: String): List<Article>
 
     @GET("articles/{articleId}")
-    suspend fun getArticle(
-        @Path("articleId") articleId: String
-    ): Article
+    suspend fun getArticle(@Path("articleId") articleId: String): Article
 
     @GET("authors/")
-    suspend fun getAuthors(
-    ): List<Author>
+    suspend fun getAuthors(): List<Author>
 
     @GET("authors/{authorId}")
-    suspend fun getAuthor(
-        @Path("authorId") authorId: String
-    ): Author
+    suspend fun getAuthor(@Path("authorId") authorId: String): Author
 }
