@@ -13,6 +13,7 @@ import javax.inject.Inject
 
 class ArticlesListModel @Inject constructor() {
     @Inject lateinit var apiClient: ApiClient
+    private var selectedLeagueIndex = 1 //the fist league has no articles
 
     suspend fun getLeagues(): List<League> {
         return apiClient.getLeagues()
@@ -37,16 +38,20 @@ class ArticlesListModel @Inject constructor() {
 
     val articles = mutableListOf<Article>()
     val authors = mutableListOf<Author>()
+    val leagues = mutableListOf<League>()
     suspend fun loadArticles() {
         articles.clear()
-        val leagues = apiClient.getLeagues()
+
+        if (leagues.isEmpty()) {
+            leagues.addAll(apiClient.getLeagues())
+        }
 //        leagues.forEach {
 //            allArticles.addAll(apiClient.getArticles(it.id))
 //        }
 
 
         //Temporary to speed up dev
-        articles.addAll(apiClient.getArticles(leagues[1].id))
+        articles.addAll(apiClient.getArticles(leagues[selectedLeagueIndex].id))
     }
 
     suspend fun loadAuthors() {
@@ -79,5 +84,14 @@ class ArticlesListModel @Inject constructor() {
 
             articles[i] = articles[i].combineWithAuthor(author)
         }
+    }
+
+    fun selectLeague(position: Int) : Boolean {
+        if (selectedLeagueIndex != position) {
+            selectedLeagueIndex = position
+            return true
+        }
+
+        return false
     }
 }
