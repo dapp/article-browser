@@ -13,7 +13,7 @@ import java.net.URLDecoder
 import java.net.URLEncoder
 
 
-class ArticlesListAdapter(var articles: List<Article>) :
+class ArticlesListAdapter(var articles: List<Article>, var onClickBehavior: (Article) -> Unit) :
     RecyclerView.Adapter<ArticlesListAdapter.ArticleViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ArticleViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
@@ -33,6 +33,9 @@ class ArticlesListAdapter(var articles: List<Article>) :
         holder.authorName.text = articles[position].author.name
         Picasso.get().load(URLDecoder.decode(articles[position].imageUrl ?: "http://www.google.com", "UTF-8")).into(holder.articleImage)
         Picasso.get().load(articles[position].author.imageUrl).into(holder.authorImage)
+        holder.itemView.setOnClickListener {
+            onClickBehavior.invoke(articles[position])
+        }
     }
 
     override fun getItemCount(): Int {
