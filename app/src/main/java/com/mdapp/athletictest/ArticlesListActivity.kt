@@ -68,17 +68,25 @@ class ArticlesListActivity : AppCompatActivity() {
                     }
                 }
 
-
                 val rv = findViewById<RecyclerView>(R.id.articles)
-                rv.layoutManager = LinearLayoutManager(this@ArticlesListActivity);
-                adapter.articles = model.articles
-                adapter.onClickBehavior = { article ->
-                    dataTransport.put(ARTICLE_ID_KEY, article.id)
-                    dataTransport.put(article.id, article)
-                    launcher.launchArticle(article.id)
+                val emptyState = findViewById<View>(R.id.emptyState)
+                if (model.articles.isNotEmpty()) {
+                    rv.visibility = VISIBLE
+                    emptyState.visibility = GONE
+                    rv.layoutManager = LinearLayoutManager(this@ArticlesListActivity);
+                    adapter.articles = model.articles
+                    adapter.onClickBehavior = { article ->
+                        dataTransport.put(ARTICLE_ID_KEY, article.id)
+                        dataTransport.put(article.id, article)
+                        launcher.launchArticle(article.id)
+                    }
+
+                    rv.adapter = adapter
+                } else {
+                    rv.visibility = GONE
+                    emptyState.visibility = VISIBLE
                 }
 
-                rv.adapter = adapter
                 loadingIndicator.visibility = GONE
             }
         }
@@ -88,12 +96,26 @@ class ArticlesListActivity : AppCompatActivity() {
         //To Do, this fires automatically the first time
         if (model.selectLeague(leagueIndex)) {
             lifecycleScope.launch {
+                val loadingIndicator = findViewById<View>(R.id.loadingIndicator)
+                loadingIndicator.visibility = VISIBLE
+
+                val emptyState = findViewById<View>(R.id.emptyState)
+                emptyState.visibility = GONE
                 model.loadArticles()
                 model.combineArticlesWithAuthors()
 
                 //TODO implement empty state
                 withContext(Dispatchers.Main) {
+                    loadingIndicator.visibility = GONE
                     adapter.notifyDataSetChanged()
+                    val rv = findViewById<RecyclerView>(R.id.articles)
+                    if (model.articles.isNotEmpty()) {
+                        rv.visibility = VISIBLE
+                        emptyState.visibility = GONE
+                    } else {
+                        rv.visibility = GONE
+                        emptyState.visibility = VISIBLE
+                    }
                 }
             }
         }

@@ -1,6 +1,5 @@
 package com.mdapp.athletictest.model
 
-import androidx.lifecycle.lifecycleScope
 import com.mdapp.athletictest.data.ApiClient
 import com.mdapp.athletictest.data.Article
 import com.mdapp.athletictest.data.Author
