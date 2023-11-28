@@ -9,7 +9,6 @@ class ArticleModel @Inject constructor() {
     var article: Article? = null
     var articleId: String? = null
 
-
     suspend fun loadArticle(articleId: String) {
         article = apiClient.getArticle(articleId)
     }
