@@ -4,14 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mdapp.athletictest.data.Article
-import com.squareup.picasso.Picasso
+import com.mdapp.athletictest.model.ArticleModel
+import com.mdapp.athletictest.presenter.ArticlePresenter
+import com.mdapp.athletictest.view.ArticleView
 import java.net.URLDecoder
-import java.net.URLEncoder
-
 
 class ArticlesListAdapter(var articles: List<Article>, var onClickBehavior: (Article) -> Unit) :
     RecyclerView.Adapter<ArticlesListAdapter.ArticleViewHolder>() {
@@ -22,17 +20,19 @@ class ArticlesListAdapter(var articles: List<Article>, var onClickBehavior: (Art
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        if (articles[position].imageUrl.isNullOrEmpty()) {
+        if (articles[position].imageUrl.isEmpty()) {
             Log.d("image loading", "No image url for article title: ${articles[position].title}")
         } else {
             Log.d("image loading", "decoded image url is ${URLDecoder.decode(articles[position].imageUrl)}")
         }
 
+        val articleModel = ArticleModel().apply { article = articles[position]
+        articleId = articles[position].id}
 
-        holder.title.text = articles[position].title
-        holder.authorName.text = articles[position].author.name
-        Picasso.get().load(URLDecoder.decode(articles[position].imageUrl ?: "http://www.google.com", "UTF-8")).into(holder.articleImage)
-        Picasso.get().load(articles[position].author.imageUrl).into(holder.authorImage)
+        val articlePresenter = ArticlePresenter(articleModel)
+        articlePresenter.attachView(ArticleView(holder.itemView as ViewGroup))
+        articlePresenter.present()
+
         holder.itemView.setOnClickListener {
             onClickBehavior.invoke(articles[position])
         }
@@ -42,17 +42,5 @@ class ArticlesListAdapter(var articles: List<Article>, var onClickBehavior: (Art
         return articles.size
     }
 
-    class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView
-        val articleImage: ImageView
-        val authorImage: ImageView
-        val authorName: TextView
-
-        init {
-            title = itemView.findViewById(R.id.title)
-            articleImage = itemView.findViewById(R.id.articleImage)
-            authorImage = itemView.findViewById(R.id.authorImage)
-            authorName = itemView.findViewById(R.id.authorName)
-        }
-    }
+    class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

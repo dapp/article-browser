@@ -11,8 +11,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class ArticlePresenter(private val model: ArticleModel,
-    private val dataTransport: DataTransport,
-    private val scope: CoroutineScope) {
+    private val dataTransport: DataTransport? = null,
+    private val scope: CoroutineScope? = null) {
 
     private var view: ArticleView? = null
 
@@ -24,16 +24,7 @@ class ArticlePresenter(private val model: ArticleModel,
         getArticle()
         present()
     }
-
-    @VisibleForTesting
     fun present() {
-        model.articleId = dataTransport.get(ARTICLE_ID_KEY) as? String
-        model.articleId?.let {
-            model.article = dataTransport.get(it) as? Article
-        } ?: kotlin.run {
-            Log.e("ArticleActivity", "No article id provided")
-        }
-
         model.article?.title?.let { view?.setTitle(it) }
         model.article?.author?.name?.let { view?.setAuthorName(it) }
         model.article?.imageUrl?.let { view?.setArticleImageFromUrl(it) }
@@ -43,16 +34,16 @@ class ArticlePresenter(private val model: ArticleModel,
 
     @VisibleForTesting
     fun getArticle() {
-        model.articleId = dataTransport.get(ARTICLE_ID_KEY) as? String
+        model.articleId = dataTransport?.get(ARTICLE_ID_KEY) as? String
         model.articleId?.let {
-            model.article = dataTransport.get(it) as? Article
+            model.article = dataTransport?.get(it) as? Article
         } ?: kotlin.run {
             Log.e("ArticleActivity", "No article id provided")
         }
 
         if (model.article == null && model.articleId != null) {
             view?.showLoading()
-            scope.launch {
+            scope?.launch {
                 //TODO - we won't have author data, so we need to consolidate the code to
                 // get the article, and the authors and combine them
                 model.articleId?.let { model.loadArticle(it) }

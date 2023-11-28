@@ -11,7 +11,7 @@ class ArticleView(view: ViewGroup) {
     private val articleImage: ImageView
     private val authorImage: ImageView
     private val authorName: TextView
-    private val body: TextView
+    private val body: TextView?
 
     init {
         title = view.findViewById(R.id.title)
@@ -26,7 +26,7 @@ class ArticleView(view: ViewGroup) {
     }
 
     fun setBody(bodyText: String) {
-        body.text = bodyText
+        body?.text = bodyText
     }
 
     fun setAuthorName(authorNameText: String) {
