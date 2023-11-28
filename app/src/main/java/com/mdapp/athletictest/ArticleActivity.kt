@@ -34,5 +34,6 @@ class ArticleActivity : AppCompatActivity() {
 
     companion object {
         const val ARTICLE_ID_KEY = "articleId"
+        const val LEAGUE_NAME_KEY = "leagueName"
     }
 }

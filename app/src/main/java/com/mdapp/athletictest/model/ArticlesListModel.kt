@@ -93,4 +93,6 @@ class ArticlesListModel @Inject constructor() {
 
         return false
     }
+
+    fun getSelectedLeagueName() = leagues[selectedLeagueIndex].name ?: ""
 }

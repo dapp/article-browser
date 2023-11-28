@@ -2,6 +2,7 @@ package com.mdapp.athletictest.presenter
 
 import androidx.annotation.VisibleForTesting
 import com.mdapp.athletictest.ArticleActivity.Companion.ARTICLE_ID_KEY
+import com.mdapp.athletictest.ArticleActivity.Companion.LEAGUE_NAME_KEY
 import com.mdapp.athletictest.model.ArticlesListModel
 import com.mdapp.athletictest.utils.DataTransport
 import com.mdapp.athletictest.utils.Launcher
@@ -49,6 +50,7 @@ class ArticlesListPresenter(private val model: ArticlesListModel,
         view?.setArticleOnClickBehavior { article ->
             dataTransport.put(ARTICLE_ID_KEY, article.id)
             dataTransport.put(article.id, article)
+            dataTransport.put(LEAGUE_NAME_KEY, model.getSelectedLeagueName())
             launcher.launchArticle(article.id)
         }
     }

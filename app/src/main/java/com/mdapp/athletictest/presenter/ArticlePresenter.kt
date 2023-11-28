@@ -3,6 +3,7 @@ package com.mdapp.athletictest.presenter
 import android.util.Log
 import androidx.annotation.VisibleForTesting
 import com.mdapp.athletictest.ArticleActivity.Companion.ARTICLE_ID_KEY
+import com.mdapp.athletictest.ArticleActivity.Companion.LEAGUE_NAME_KEY
 import com.mdapp.athletictest.data.Article
 import com.mdapp.athletictest.model.ArticleModel
 import com.mdapp.athletictest.utils.DataTransport
@@ -30,11 +31,13 @@ class ArticlePresenter(private val model: ArticleModel,
         model.article?.imageUrl?.let { view?.setArticleImageFromUrl(it) }
         model.article?.author?.imageUrl?.let { view?.setAuthorImageFromUrl(it) }
         model.article?.body?.let { view?.setBody(it) }
+        model.leagueName?.let { view?.setToolbarTitle(it) }
     }
 
     @VisibleForTesting
     fun getArticle() {
         model.articleId = dataTransport?.get(ARTICLE_ID_KEY) as? String
+        model.leagueName = dataTransport?.get(LEAGUE_NAME_KEY) as? String
         model.articleId?.let {
             model.article = dataTransport?.get(it) as? Article
         } ?: kotlin.run {
