@@ -34,7 +34,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:elevation="2dp"
-        tools:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:layout_width="64dp"
@@ -53,6 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:elevation="2dp"
+        android:visibility="gone"
         tools:visibility="visible">
 
         <TextView
