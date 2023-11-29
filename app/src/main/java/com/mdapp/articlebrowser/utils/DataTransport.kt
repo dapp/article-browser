@@ -1,4 +1,4 @@
-package com.mdapp.athletictest.utils
+package com.mdapp.articlebrowser.utils
 
 import javax.inject.Inject
 import javax.inject.Singleton

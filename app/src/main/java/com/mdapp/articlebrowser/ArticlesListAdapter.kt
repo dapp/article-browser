@@ -1,15 +1,14 @@
-package com.mdapp.athletictest
+package com.mdapp.articlebrowser
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mdapp.athletictest.data.Article
-import com.mdapp.athletictest.model.ArticleModel
-import com.mdapp.athletictest.presenter.ArticlePresenter
-import com.mdapp.athletictest.view.ArticleView
-import java.net.URLDecoder
+import com.mdapp.articlebrowser.data.Article
+import com.mdapp.articlebrowser.model.ArticleModel
+import com.mdapp.articlebrowser.presenter.ArticlePresenter
+import com.mdapp.articlebrowser.view.ArticleView
 
 class ArticlesListAdapter(var articles: List<Article>, var onClickBehavior: (Article) -> Unit) :
     RecyclerView.Adapter<ArticlesListAdapter.ArticleViewHolder>() {

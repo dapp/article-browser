@@ -1,4 +1,4 @@
-package com.mdapp.athletictest.view
+package com.mdapp.articlebrowser.view
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -12,9 +12,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mdapp.athletictest.ArticlesListAdapter
-import com.mdapp.athletictest.R
-import com.mdapp.athletictest.data.Article
+import com.mdapp.articlebrowser.ArticlesListAdapter
+import com.mdapp.articlebrowser.R
+import com.mdapp.articlebrowser.data.Article
 import kotlinx.coroutines.CoroutineScope
 
 class ArticleListView(view: ViewGroup) {

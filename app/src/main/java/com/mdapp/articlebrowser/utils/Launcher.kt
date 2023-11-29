@@ -1,9 +1,9 @@
-package com.mdapp.athletictest.utils
+package com.mdapp.articlebrowser.utils
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import com.mdapp.athletictest.ArticleActivity
+import com.mdapp.articlebrowser.ArticleActivity
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 

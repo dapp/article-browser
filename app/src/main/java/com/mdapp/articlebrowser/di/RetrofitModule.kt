@@ -1,8 +1,8 @@
-package com.mdapp.athletictest.di
+package com.mdapp.articlebrowser.di
 
 import android.content.Context
-import com.mdapp.athletictest.R
-import com.mdapp.athletictest.data.AthleticService
+import com.mdapp.articlebrowser.R
+import com.mdapp.articlebrowser.data.AthleticService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

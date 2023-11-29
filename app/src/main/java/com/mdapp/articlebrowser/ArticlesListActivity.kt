@@ -1,13 +1,13 @@
-package com.mdapp.athletictest
+package com.mdapp.articlebrowser
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.mdapp.athletictest.model.ArticlesListModel
-import com.mdapp.athletictest.presenter.ArticlesListPresenter
-import com.mdapp.athletictest.utils.DataTransport
-import com.mdapp.athletictest.utils.Launcher
-import com.mdapp.athletictest.view.ArticleListView
+import com.mdapp.articlebrowser.model.ArticlesListModel
+import com.mdapp.articlebrowser.presenter.ArticlesListPresenter
+import com.mdapp.articlebrowser.utils.DataTransport
+import com.mdapp.articlebrowser.utils.Launcher
+import com.mdapp.articlebrowser.view.ArticleListView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

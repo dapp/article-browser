@@ -1,7 +1,7 @@
-package com.mdapp.athletictest.model
+package com.mdapp.articlebrowser.model
 
-import com.mdapp.athletictest.data.ApiClient
-import com.mdapp.athletictest.data.Article
+import com.mdapp.articlebrowser.data.ApiClient
+import com.mdapp.articlebrowser.data.Article
 import javax.inject.Inject
 
 class ArticleModel @Inject constructor() {

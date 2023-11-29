@@ -1,8 +1,8 @@
-package com.mdapp.athletictest
+package com.mdapp.articlebrowser
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class AthleticTestApp : Application() {
+class ArticleBrowserApp : Application() {
 }

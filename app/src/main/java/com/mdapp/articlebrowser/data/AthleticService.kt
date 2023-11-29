@@ -1,4 +1,4 @@
-package com.mdapp.athletictest.data
+package com.mdapp.articlebrowser.data
 
 import retrofit2.http.GET
 import retrofit2.http.Path

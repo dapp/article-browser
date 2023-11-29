@@ -1,4 +1,4 @@
-package com.mdapp.athletictest.data
+package com.mdapp.articlebrowser.data
 
 import com.squareup.moshi.Json
 

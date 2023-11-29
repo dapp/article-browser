@@ -1,9 +1,9 @@
-package com.mdapp.athletictest.model
+package com.mdapp.articlebrowser.model
 
-import com.mdapp.athletictest.data.ApiClient
-import com.mdapp.athletictest.data.Article
-import com.mdapp.athletictest.data.Author
-import com.mdapp.athletictest.data.League
+import com.mdapp.articlebrowser.data.ApiClient
+import com.mdapp.articlebrowser.data.Article
+import com.mdapp.articlebrowser.data.Author
+import com.mdapp.articlebrowser.data.League
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 

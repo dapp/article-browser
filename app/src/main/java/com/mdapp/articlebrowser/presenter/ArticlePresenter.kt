@@ -1,13 +1,13 @@
-package com.mdapp.athletictest.presenter
+package com.mdapp.articlebrowser.presenter
 
 import android.util.Log
 import androidx.annotation.VisibleForTesting
-import com.mdapp.athletictest.ArticleActivity.Companion.ARTICLE_ID_KEY
-import com.mdapp.athletictest.ArticleActivity.Companion.LEAGUE_NAME_KEY
-import com.mdapp.athletictest.data.Article
-import com.mdapp.athletictest.model.ArticleModel
-import com.mdapp.athletictest.utils.DataTransport
-import com.mdapp.athletictest.view.ArticleView
+import com.mdapp.articlebrowser.ArticleActivity.Companion.ARTICLE_ID_KEY
+import com.mdapp.articlebrowser.ArticleActivity.Companion.LEAGUE_NAME_KEY
+import com.mdapp.articlebrowser.data.Article
+import com.mdapp.articlebrowser.model.ArticleModel
+import com.mdapp.articlebrowser.utils.DataTransport
+import com.mdapp.articlebrowser.view.ArticleView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

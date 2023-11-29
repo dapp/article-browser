@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mdapp.athletictest"
+    namespace = "com.mdapp.articlebrowser"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.mdapp.athletictest"
+        applicationId = "com.mdapp.articlebrowser"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
