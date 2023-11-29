@@ -15,5 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Athletic Test"
+rootProject.name = "Article Browser"
 include(":app")

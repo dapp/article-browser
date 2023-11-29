@@ -1,6 +1,6 @@
-The Athletic Test App
+Article Browser
 
-This application implements The Athletic's coding challenge to create a simple article browser
+A simple article browser for Android using public APIs
 
 It reads from RESTful HTTP APIs and displays the data
 
