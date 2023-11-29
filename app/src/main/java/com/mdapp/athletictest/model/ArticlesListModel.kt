@@ -4,10 +4,7 @@ import com.mdapp.athletictest.data.ApiClient
 import com.mdapp.athletictest.data.Article
 import com.mdapp.athletictest.data.Author
 import com.mdapp.athletictest.data.League
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 class ArticlesListModel @Inject constructor() {
@@ -38,36 +35,31 @@ class ArticlesListModel @Inject constructor() {
     val articles = mutableListOf<Article>()
     val authors = mutableListOf<Author>()
     val leagues = mutableListOf<League>()
-    suspend fun loadArticles() {
+    suspend fun loadArticles() = coroutineScope {
         articles.clear()
 
         if (leagues.isEmpty()) {
             leagues.addAll(apiClient.getLeagues())
         }
 
-        articles.addAll(apiClient.getArticles(leagues[selectedLeagueIndex].id))
+        if (selectedLeagueIndex >= 0) {
+            articles.addAll(apiClient.getArticles(leagues[selectedLeagueIndex].id))
+        } else {
+            //Get all articles. this will take a while.
+            //TODO - make all the calls in parallel.  When I make concurrent calls, the API always
+            // times out.  It may have trouble handling the traffic
+//            leagues.map {
+//                async { articles.addAll(apiClient.getArticles(it.id)) }
+//            }.awaitAll()
+            leagues.forEach {
+                articles.addAll(apiClient.getArticles(it.id))
+            }
+        }
     }
 
     suspend fun loadAuthors() {
         authors.clear()
         authors.addAll(getAuthors())
-    }
-
-    fun loadData(scope: CoroutineScope) {
-        scope.launch {
-            var articleSummaries: List<Article> = listOf()
-            val articlesJob = async { articleSummaries = getArticles() }
-            val authorsJob = async { loadAuthors() }
-
-            awaitAll(articlesJob, authorsJob)
-            articles.addAll(articleSummaries.map { article ->
-                val author = authors.find { author ->
-                    author.id == article.author.id
-                }
-
-                article.combineWithAuthor(author)
-            })
-        }
     }
 
     fun combineArticlesWithAuthors() {
@@ -81,8 +73,12 @@ class ArticlesListModel @Inject constructor() {
     }
 
     fun selectLeague(position: Int) : Boolean {
-        if (selectedLeagueIndex != position) {
+        if (selectedLeagueIndex != position && position < leagues.size) {
             selectedLeagueIndex = position
+            return true
+        } else if (position == leagues.size) {
+            //get all articles
+            selectedLeagueIndex = -1
             return true
         }
 

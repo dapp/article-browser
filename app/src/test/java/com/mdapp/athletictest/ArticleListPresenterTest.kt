@@ -4,6 +4,7 @@ import com.mdapp.athletictest.data.Article
 import com.mdapp.athletictest.data.League
 import com.mdapp.athletictest.model.ArticlesListModel
 import com.mdapp.athletictest.presenter.ArticlesListPresenter
+import com.mdapp.athletictest.presenter.ArticlesListPresenter.Companion.ALL_LABEL
 import com.mdapp.athletictest.utils.DataTransport
 import com.mdapp.athletictest.utils.Launcher
 import com.mdapp.athletictest.view.ArticleListView
@@ -72,7 +73,11 @@ class ArticleListPresenterTest {
         whenever(model.leagues).thenReturn(getLeagues(3))
         sut.present()
         verify(view).hideLoading()
-        verify(view).populateLeagueSpinner(LEAGUE_NAMES.subList(0,3))
+
+        val expectedLeagueItems = LEAGUE_NAMES.subList(0,3).toMutableList()
+        expectedLeagueItems.add(ALL_LABEL)
+
+        verify(view).populateLeagueSpinner(expectedLeagueItems)
 
         verify(view).setLeagueSpinnerOnClickBehavior(onLeagueSelectBehaviorCaptor.capture())
         val selectedLeagueIndex = 2

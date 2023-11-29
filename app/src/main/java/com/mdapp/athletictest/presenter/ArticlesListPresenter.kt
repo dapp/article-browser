@@ -42,7 +42,9 @@ class ArticlesListPresenter(private val model: ArticlesListModel,
     @VisibleForTesting
     fun present() {
         view?.hideLoading()
-        val leagueNames = model.leagues.map { league -> league.name }
+        val leagueNames = model.leagues.map { league -> league.name }.toMutableList()
+        leagueNames.add(ALL_LABEL)
+
         view?.populateLeagueSpinner(leagueNames)
         view?.setLeagueSpinnerOnClickBehavior { position ->
             onLeagueSelected(position)
@@ -77,5 +79,9 @@ class ArticlesListPresenter(private val model: ArticlesListModel,
                 }
             }
         }
+    }
+
+    companion object {
+        const val ALL_LABEL = "ALL"
     }
 }
