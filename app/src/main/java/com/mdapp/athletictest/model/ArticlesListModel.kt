@@ -44,12 +44,7 @@ class ArticlesListModel @Inject constructor() {
         if (leagues.isEmpty()) {
             leagues.addAll(apiClient.getLeagues())
         }
-//        leagues.forEach {
-//            allArticles.addAll(apiClient.getArticles(it.id))
-//        }
 
-
-        //Temporary to speed up dev
         articles.addAll(apiClient.getArticles(leagues[selectedLeagueIndex].id))
     }
 

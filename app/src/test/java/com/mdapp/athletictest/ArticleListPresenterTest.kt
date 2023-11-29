@@ -7,15 +7,18 @@ import com.mdapp.athletictest.presenter.ArticlesListPresenter
 import com.mdapp.athletictest.utils.DataTransport
 import com.mdapp.athletictest.utils.Launcher
 import com.mdapp.athletictest.view.ArticleListView
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -23,40 +26,43 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.spy
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
 class ArticleListPresenterTest {
-    @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    private val testDispatcher: TestDispatcher = StandardTestDispatcher()
 
     @Mock lateinit var model: ArticlesListModel
     @Mock lateinit var launcher: Launcher
     @Mock lateinit var dataTransport: DataTransport
     @Mock lateinit var view: ArticleListView
 
-    private val scope = TestScope()
+    private val scope = TestScope(testDispatcher)
     private lateinit var sut: ArticlesListPresenter
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this);
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(testDispatcher)
 
         sut = ArticlesListPresenter(model, launcher, dataTransport, scope)
         sut.attachView(view)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `onResume works`() {
-        runBlocking {
-            sut.onResume()
-            verify(view).showLoading()
-
-            //TODO - test the coroutine
-        }
+    fun `onResume works`() = runTest {
+        val spy = spy(sut)
+        spy.onResume()
+        advanceUntilIdle()
+        verify(view).showLoading()
+        verify(model).loadArticles()
+        verify(model).loadAuthors()
+        verify(model).combineArticlesWithAuthors()
+        verify(spy).present()
     }
 
     @Test
