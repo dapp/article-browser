@@ -23,10 +23,17 @@ HTTP operations, Moshi for JSON parsing, and JUnit + Mockito for unit testing.
 The application was written entirely from scratch, relying on no existing application as a bootstrap.
 
 Trade Offs:
-To save time, I made several sacrifices.  The app's UI is simple, and somewhat inconsistent.  I didn't
-unit test all the business logic, and instead simply wrote some tests to illustrate the art of unit
-testing.  I used XML in lieu of Compose, since I'm more familiar with XML and can build XML layouts
-faster and cleaner currently than I can in Compose.  I also used MVP, which most Android devs never
-bother to even learn, even though the entire Android ecosystem is setup to support MVVM.  Again this
+
+To save time, I made several sacrifices.  
+
+1. The app's UI is simple, and somewhat inconsistent.  
+2. I didn't unit test all the business logic, and instead simply wrote some tests to illustrate the art of unit
+testing.  
+3. I used XML in lieu of Compose, since I'm more familiar with XML and can build XML layouts
+faster and cleaner currently than I can in Compose. 
+4. I also used MVP, which most Android devs never bother to even learn, even though the entire Android ecosystem is setup to support MVVM.  Again this
 is bc MVP is currently fresher in my mind and was faster to implement.
+5. There is no API Error handling.  If the API fails, the app will crash
+6. There is no good solution for the All-leagues option.  I tried to make all the calls in parallel, but that causes
+the API to timeout.  So, to make it work, I call for each league's articles in series, which takes forever.
 
