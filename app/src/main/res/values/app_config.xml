@@ -1,3 +1,4 @@
 <resources>
+<!--    Specifying this here, so that it could be overridden in a flavor for another environment -->
     <string name="baseUrl">https://mobile-interview-backend.theathletic.com/</string>
 </resources>

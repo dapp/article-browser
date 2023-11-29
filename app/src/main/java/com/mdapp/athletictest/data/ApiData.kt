@@ -1,7 +1,6 @@
 package com.mdapp.athletictest.data
 
 import com.squareup.moshi.Json
-import java.lang.reflect.Constructor
 
 data class League(
     val title: String?,

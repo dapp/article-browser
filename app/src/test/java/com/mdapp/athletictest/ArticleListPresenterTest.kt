@@ -106,7 +106,7 @@ class ArticleListPresenterTest {
         verify(dataTransport).put(ArticleActivity.ARTICLE_ID_KEY, articleId)
         verify(dataTransport).put(article.id, article)
         verify(dataTransport).put(ArticleActivity.LEAGUE_NAME_KEY, leagueName)
-        verify(launcher).launchArticle(article.id)
+        verify(launcher).launchArticle()
     }
 
     private fun getLeagues(howMany: Int) : MutableList<League>? {

@@ -53,7 +53,7 @@ class ArticlesListPresenter(private val model: ArticlesListModel,
             dataTransport.put(ARTICLE_ID_KEY, article.id)
             dataTransport.put(article.id, article)
             dataTransport.put(LEAGUE_NAME_KEY, model.getSelectedLeagueName())
-            launcher.launchArticle(article.id)
+            launcher.launchArticle()
         }
     }
 

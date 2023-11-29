@@ -10,31 +10,15 @@ import javax.inject.Inject
 class ArticlesListModel @Inject constructor() {
     @Inject lateinit var apiClient: ApiClient
     private var selectedLeagueIndex = 1 //the fist league has no articles
+    private val authors = mutableListOf<Author>()
 
-    suspend fun getLeagues(): List<League> {
-        return apiClient.getLeagues()
-    }
+    val articles = mutableListOf<Article>()
+    val leagues = mutableListOf<League>()
 
-    suspend fun getAuthors(): List<Author> {
+    private suspend fun getAuthors(): List<Author> {
         return apiClient.getAuthors()
     }
 
-    suspend fun getArticles(): List<Article> {
-        val allArticles = mutableListOf<Article>()
-        val leagues = apiClient.getLeagues()
-//        leagues.forEach {
-//            allArticles.addAll(apiClient.getArticles(it.id))
-//        }
-
-
-        //Temporary to speed up dev
-        allArticles.addAll(apiClient.getArticles(leagues[1].id))
-        return allArticles
-    }
-
-    val articles = mutableListOf<Article>()
-    val authors = mutableListOf<Author>()
-    val leagues = mutableListOf<League>()
     suspend fun loadArticles() = coroutineScope {
         articles.clear()
 
@@ -47,7 +31,8 @@ class ArticlesListModel @Inject constructor() {
         } else {
             //Get all articles. this will take a while.
             //TODO - make all the calls in parallel.  When I make concurrent calls, the API always
-            // times out.  It may have trouble handling the traffic
+            // times out.  It may have trouble handling the traffic.  Leaving concurrent call code
+            // in for an imaginary future where we fix the API
 //            leagues.map {
 //                async { articles.addAll(apiClient.getArticles(it.id)) }
 //            }.awaitAll()

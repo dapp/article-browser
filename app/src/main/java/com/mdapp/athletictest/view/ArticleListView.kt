@@ -12,7 +12,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mdapp.athletictest.ArticleActivity
 import com.mdapp.athletictest.ArticlesListAdapter
 import com.mdapp.athletictest.R
 import com.mdapp.athletictest.data.Article
@@ -101,6 +100,4 @@ class ArticleListView(view: ViewGroup) {
             behavior.invoke(article)
         }
     }
-
-    fun getScope() : CoroutineScope = scope
 }

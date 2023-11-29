@@ -22,8 +22,6 @@ class ArticlesListAdapter(var articles: List<Article>, var onClickBehavior: (Art
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         if (articles[position].imageUrl.isEmpty()) {
             Log.d("image loading", "No image url for article title: ${articles[position].title}")
-        } else {
-            Log.d("image loading", "decoded image url is ${URLDecoder.decode(articles[position].imageUrl)}")
         }
 
         val articleModel = ArticleModel().apply { article = articles[position]
